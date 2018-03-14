@@ -119,16 +119,16 @@ li {
 /* End of view */
 
 circle {
-    stroke: rgba(239, 255, 0, 1);
+    stroke: rgba(55, 123, 55, 1);
     stroke-width: 0.5;
 }
 circle.active {
-    stroke: rgba(17, 17, 17, 0.8);
+    stroke: rgba(55, 123, 55, 1);
     stroke-width: 5;
 }
 
 .legend circle {
-    stroke: #aabbcc;
+    stroke: #5e4a67;
     stroke-width: 1;
     fill: none;
 }
