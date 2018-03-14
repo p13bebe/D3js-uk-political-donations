@@ -48,6 +48,7 @@ function transition(name) {
 		$("#view-donor-type").fadeOut(250);
 		$("#view-source-type").fadeOut(250);
 		$("#view-party-type").fadeOut(250);
+		$("#view-amount-donation").fadeOut(250);
 		return total();
 		//location.reload();
 	}
@@ -57,6 +58,7 @@ function transition(name) {
 		$("#view-donor-type").fadeOut(250);
 		$("#view-source-type").fadeOut(250);
 		$("#view-party-type").fadeIn(1000);
+		$("#view-amount-donation").fadeOut(250);
 		return partyGroup();
 	}
 	if (name === "group-by-donor-type") {
@@ -65,17 +67,28 @@ function transition(name) {
 		$("#view-party-type").fadeOut(250);
 		$("#view-source-type").fadeOut(250);
 		$("#view-donor-type").fadeIn(1000);
+		$("#view-amount-donation").fadeOut(250);
 		return donorType();
 	}
-	if (name === "group-by-money-source")
+	if (name === "group-by-money-source"){
 		$("#initial-content").fadeOut(250);
 		$("#value-scale").fadeOut(250);
 		$("#view-donor-type").fadeOut(250);
 		$("#view-party-type").fadeOut(250);
 		$("#view-source-type").fadeIn(1000);
+		$("#view-amount-donation").fadeOut(250);
 		return fundsType();
 	}
-
+ if (name === "group-by-amount-donation"){
+		$("#initial-content").fadeOut(250);
+		$("#value-scale").fadeOut(250);
+		$("#view-donor-type").fadeOut(250);
+		$("#view-party-type").fadeOut(250);
+		$("#view-source-type").fadeOut(250);
+		$("#view-amount-donation").fadeIn(1000);
+		return amountType();
+	}
+}
 function start() {
 
 	node = nodeGroup.selectAll("circle")
@@ -141,6 +154,13 @@ function fundsType() {
 		.on("tick", types)
 		.start();
 }
+function amountType() {
+	force.gravity(0)
+		.friction(0.75)
+		.charge(function(d) { return -Math.pow(d.radius, 2.0) / 3; })
+		.on("tick", amounts)
+		.start();
+}
 
 function parties(e) {
 	node.each(moveToParties(e.alpha));
@@ -163,7 +183,13 @@ function types(e) {
 		node.attr("cx", function(d) { return d.x; })
 			.attr("cy", function(d) {return d.y; });
 }
+function amounts(e) {
+	node.each(moveToAmounts(e.alpha));
 
+
+		node.attr("cx", function(d) { return d.x; })
+			.attr("cy", function(d) {return d.y; });
+}
 function all(e) {
 	node.each(moveToCentre(e.alpha))
 		.each(collide(0.001));
@@ -238,6 +264,32 @@ function moveToFunds(alpha) {
 		}
 		d.x += (centreX - d.x) * (brake + 0.02) * alpha * 1.1;
 		d.y += (centreY - d.y) * (brake + 0.02) * alpha * 1.1;
+	};
+}
+function moveToAmounts(alpha){
+	return function(d){
+		     var centreY; 
+		     var centreX; 
+                 if (d.value <= 100000){	
+			centreX = 250;
+			centreY = 350;
+
+		} else if (d.value > 100000 && d.value <=500000){
+                        centreX = 450;
+			centreY = 300;
+
+		}  else if(d.value>500000 && d.value<=1000000){
+			centreX = 200;
+			centreY = 600;
+		}  else if(d.value>1000000){
+			centreX = 400;
+		        centreY = 600;
+		}
+
+
+		d.x += (centreX - d.x) * (brake + 0.02) * alpha * 1.1;
+		d.y += (centreY - d.y) * (brake + 0.02) * alpha * 1.1;
+
 	};
 }
 
