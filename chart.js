@@ -108,6 +108,7 @@ function start() {
 		.on("mouseout", mouseout)
 	        .on("click", function(d){
 			  window.open('http://google.com/search?q='+d.donor);
+		})
 		// Alternative title based 'tooltips'
 		// node.append("title")
 		//	.text(function(d) { return d.donor; });
