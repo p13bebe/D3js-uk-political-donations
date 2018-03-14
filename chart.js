@@ -105,7 +105,9 @@ function start() {
 		.attr("r", 0)
 		.style("fill", function(d) { return fill(d.party); })
 		.on("mouseover", mouseover)
-		.on("mouseout", mouseout);
+		.on("mouseout", mouseout)
+	        .on("click", function(d){
+			  window.open('http://google.com/search?q='+d.donor);
 		// Alternative title based 'tooltips'
 		// node.append("title")
 		//	.text(function(d) { return d.donor; });
@@ -367,7 +369,8 @@ function mouseover(d, i) {
 	var party = d.partyLabel;
 	var entity = d.entityLabel;
 	var offset = $("svg").offset();
-	
+	var speech = new SpeechSynthesisUtterance( "donator's name is "+ d. donor +" and  the donation is " + amount );
+        window.speechSynthesis.speak(speech);
 
 
 	// image url that want to check
@@ -405,7 +408,7 @@ function mouseout() {
 		var mosie = d3.select(this);
 
 		mosie.classed("active", false);
-
+                 window.speechSynthesis.cancel();
 		d3.select(".tooltip")
 			.style("display", "none");
 		}
