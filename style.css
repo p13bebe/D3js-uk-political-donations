@@ -233,6 +233,6 @@ https://github.com/yui/pure/blob/master/LICENSE.md
     outline: 0;
 }
 .pure-button-active, .pure-button:active {
-    color: rgb(0, 120, 231);
-    color: #fff
+    color: rgb(55, 120, 55);
+    color: #5E4A67
 }
